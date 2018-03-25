@@ -9,24 +9,23 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
 
-var Engine = (function(global) {
-    /* Predefine the variables we'll be using within this scope,
+let Engine = (function(global) {
+    /* Predefine the letiables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
-    var doc = global.document,
-        win = global.window,
-        canvas = doc.createElement('canvas'),
-        ctx = canvas.getContext('2d'),
-        lastTime;
+    let doc = global.document;
+    let win = global.window;
+    let canvas = doc.querySelector('#canvas');
+    let ctx = canvas.getContext('2d');
+    let lastTime;
 
-    canvas.width = 505;
-    canvas.height = 606;
-    doc.body.appendChild(canvas);
+    canvas.width = 600;
+    canvas.height = 600;
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -38,7 +37,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-        var now = Date.now(),
+        let now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
@@ -47,7 +46,7 @@ var Engine = (function(global) {
         update(dt);
         render();
 
-        /* Set our lastTime variable which is used to determine the time delta
+        /* Set our lastTime letiable which is used to determine the time delta
          * for the next time this function is called.
          */
         lastTime = now;
@@ -59,7 +58,7 @@ var Engine = (function(global) {
     }
 
     /* This function does some initial setup that should only occur once,
-     * particularly setting the lastTime variable that is required for the
+     * particularly setting the lastTime letiable that is required for the
      * game loop.
      */
     function init() {
@@ -106,7 +105,7 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
+        let rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
@@ -117,7 +116,7 @@ var Engine = (function(global) {
             numRows = 6,
             numCols = 5,
             row, col;
-        
+
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
@@ -177,7 +176,7 @@ var Engine = (function(global) {
     ]);
     Resources.onReady(init);
 
-    /* Assign the canvas' context object to the global variable (the window
+    /* Assign the canvas' context object to the global letiable (the window
      * object when run in a browser) so that developers can use it more easily
      * from within their app.js files.
      */
