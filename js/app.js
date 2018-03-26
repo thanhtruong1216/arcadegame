@@ -3,7 +3,7 @@ let score = 0;
 document.getElementById('score').innerHTML = `Your score is ${score}`;
 
 // Define function enemies player must avoid
-let Enemy = function(x, y, speed) {
+let Enemy = function(x, y) {
     // Use image/sprite to load images
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
@@ -13,65 +13,65 @@ let Enemy = function(x, y, speed) {
 // Update the enemies position
 Enemy.prototype.update = function(dt) {
 // Multiply any movement by the dt parameter which will ensure the game runs at the same speed for all computers.
-    this.x < 600 ? this.x += (150 * dt) : this.x = -90;
+  this.x < 600 ? this.x += (130 * dt) : this.x = -90;
 
-// If the enemy and the player collide.
-    if(this.x < player.x + 30 &&
-        this.x + 60 > player.x &&
-        this.y < player.y + 60 &&
-        this.y + 40 > player.y) {
-        score = 0;
-        document.getElementById('score').innerHTML = `Your score is ${score}`;
-        player.reset();
-    }
+// Reset game when Vehicle-player collisions happen
+  if(this.x < player.x + 40 &&
+    this.x + 60 > player.x &&
+    this.y < player.y + 60 &&
+    this.y + 40 > player.y) {
+    score = 0;
+    document.getElementById('score').innerHTML = `Your score is ${score}`;
+    player.reset();
+  }
 
 };
 
 // Render enemies on the screen
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Define player class with update(), render() and a handleInput() method.
 let Player = function () {
-    this.sprite = 'images/char-boy.png';
-    this.x = 200;
-    this.y = 320;
+  this.sprite = 'images/char-boy.png';
+  this.x = 200;
+  this.y = 320;
 };
 
 // Each time position is updated, call player function
 Player.prototype.update = function() {
-    // When the player reached the water, add 1 to score and reset player position
-    if (player.y < 20) {
+  // When the player reached the water, add 1 to score and reset player position
+  if (player.y < 20) {
     score++;
     document.getElementById('score').innerHTML = `Your score is ${score}`;
     this.reset();
-}
+  }
 };
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.handleInput = function(keyPress) {
-    if(keyPress == 'left' && this.x > 0) {
-        this.x -= 60;
-    }
-    if(keyPress == 'right' && this.x < 400) {
-        this.x += 60;
-    }
-    if(keyPress == 'up' && this.y > 3) {
-        this.y -= 60;
-    }
-    if(keyPress == 'down' && this.y < 400) {
-        this.y += 60;
-    }
+  if(keyPress == 'left' && this.x > 0) {
+    this.x -= 60;
+  }
+  if(keyPress == 'right' && this.x < 400) {
+    this.x += 60;
+  }
+  if(keyPress == 'up' && this.y > 3) {
+    this.y -= 60;
+  }
+  if(keyPress == 'down' && this.y < 400) {
+    this.y += 60;
+  }
 };
 
 // Player return start position
 Player.prototype.reset = function() {
-    this.x = 200;
-    this.y = 320;
+  this.x = 200;
+  this.y = 320;
 };
 
 // Instantiate Enemies objects.
