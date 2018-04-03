@@ -58,7 +58,7 @@ Player.prototype.update = function() {
   if(this.x < 0) {
     this.x = 0;
   }
-  // When the player reached the water, add one point to score and layer return start position
+  // When the player reached the water, add one point to score and player return start position
   if(this.y < 0) {
     this.x = 200;
     this.y = 380;
