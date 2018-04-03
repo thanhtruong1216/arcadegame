@@ -24,7 +24,7 @@ let Engine = (function(global) {
     let ctx = canvas.getContext('2d');
     let lastTime;
 
-    canvas.width = 600;
+    canvas.width = 520;
     canvas.height = 600;
 
     /* This function serves as the kickoff point for the game loop itself
